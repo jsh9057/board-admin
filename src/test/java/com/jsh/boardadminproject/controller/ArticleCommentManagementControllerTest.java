@@ -1,7 +1,6 @@
 package com.jsh.boardadminproject.controller;
 
 import com.jsh.boardadminproject.config.SecurityConfig;
-import com.jsh.boardadminproject.domain.constant.RoleType;
 import com.jsh.boardadminproject.dto.ArticleCommentDto;
 import com.jsh.boardadminproject.dto.UserAccountDto;
 import com.jsh.boardadminproject.service.ArticleCommentManagementService;
@@ -16,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -105,8 +103,6 @@ class ArticleCommentManagementControllerTest {
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
                 "unoTest",
-                "pw",
-                Set.of(RoleType.ADMIN),
                 "uno-test@email.com",
                 "uno-test",
                 "test memo"

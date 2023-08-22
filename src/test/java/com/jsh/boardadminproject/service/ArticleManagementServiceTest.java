@@ -170,7 +170,6 @@ class ArticleManagementServiceTest {
         private UserAccountDto createUserAccountDto() {
             return UserAccountDto.of(
                     "jshTest",
-                    "pw",
                     Set.of(RoleType.ADMIN),
                     "jsh-test@mail.com",
                     "jsh-test",

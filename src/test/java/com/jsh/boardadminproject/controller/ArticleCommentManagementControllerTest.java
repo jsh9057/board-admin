@@ -1,6 +1,6 @@
 package com.jsh.boardadminproject.controller;
 
-import com.jsh.boardadminproject.config.SecurityConfig;
+import com.jsh.boardadminproject.config.TestSecurityConfig;
 import com.jsh.boardadminproject.dto.ArticleCommentDto;
 import com.jsh.boardadminproject.dto.UserAccountDto;
 import com.jsh.boardadminproject.service.ArticleCommentManagementService;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("컨트롤러 - 댓글 관리")
-@Import(SecurityConfig.class)
+@Import(TestSecurityConfig.class)
 @WebMvcTest(ArticleCommentManagementController.class)
 class ArticleCommentManagementControllerTest {
     private final MockMvc mvc;

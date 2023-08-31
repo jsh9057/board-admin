@@ -1,7 +1,6 @@
 package com.jsh.boardadminproject.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jsh.boardadminproject.domain.constant.RoleType;
 import com.jsh.boardadminproject.dto.ArticleDto;
 import com.jsh.boardadminproject.dto.UserAccountDto;
 import com.jsh.boardadminproject.dto.properties.ProjectProperties;
@@ -22,7 +21,6 @@ import org.springframework.test.web.client.MockRestServiceServer;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -33,30 +31,30 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 @DisplayName("비즈니스 로직 - 게시글 관리")
 class ArticleManagementServiceTest {
 
-//    @Disabled("실제 API 호출 결과 관찰용이므로 평상시엔 비활성화")
+    @Disabled("실제 API 호출 결과 관찰용이므로 평상시엔 비활성화")
     @DisplayName("실제 API 호출 테스트")
     @SpringBootTest
     @Nested
     class RealApiTest{
         private final ArticleManagementService sut;
 
-    @Autowired
-    public RealApiTest(ArticleManagementService sut) {
-        this.sut = sut;
-    }
+        @Autowired
+        public RealApiTest(ArticleManagementService sut) {
+            this.sut = sut;
+        }
 
-    @DisplayName("게시글 API를 호출하면, 게시글을 가져온다.")
-    @Test
-    void given_when_then() {
-        // Given
+        @DisplayName("게시글 API를 호출하면, 게시글을 가져온다.")
+        @Test
+        void givenNothing_whenCallingArticleApi_thenReturnsArticleList() {
+            // Given
 
-        // When
-        List<ArticleDto> result = sut.getArticles();
+            // When
+            List<ArticleDto> result = sut.getArticles();
 
-        // Then
-        System.out.println(result.stream().findFirst());
-        assertThat(result).isNotNull();
-    }
+            // Then
+            System.out.println(result.stream().findFirst());
+            assertThat(result).isNotNull();
+        }
 }
 
 
@@ -118,7 +116,7 @@ class ArticleManagementServiceTest {
             Long articleId = 1L;
             ArticleDto expectedArticle = createArticleDto("제목","글");
             server
-                    .expect(requestTo(projectProperties.board().url() + "/api/articles/"+articleId))
+                    .expect(requestTo(projectProperties.board().url() + "/api/articles/"+articleId + "?projection=withUserAccount"))
                     .andRespond(withSuccess(
                             mapper.writeValueAsString(expectedArticle),
                             MediaType.APPLICATION_JSON
@@ -170,8 +168,6 @@ class ArticleManagementServiceTest {
         private UserAccountDto createUserAccountDto() {
             return UserAccountDto.of(
                     "jshTest",
-                    "pw",
-                    Set.of(RoleType.ADMIN),
                     "jsh-test@mail.com",
                     "jsh-test",
                     "test memo"
